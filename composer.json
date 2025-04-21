@@ -1,6 +1,6 @@
 {
     "name": "sayuprc/date-type",
-    "description": "a",
+    "description": "A simple Date type",
     "type": "library",
     "require": {
         "php": "^8.4"
