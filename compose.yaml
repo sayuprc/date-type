@@ -1,0 +1,8 @@
+services:
+  php:
+    image: date-type:1.x
+    container_name: date-type-1.x
+    tty: true
+    volumes:
+      - .:/var/www/html
+      - ./php.ini:/usr/local/etc/php/php.ini
