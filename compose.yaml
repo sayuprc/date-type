@@ -1,7 +1,7 @@
 services:
   php:
-    image: date-type:1.x
-    container_name: date-type-1.x
+    image: date-type:0.x
+    container_name: date-type-0.x
     tty: true
     volumes:
       - .:/var/www/html

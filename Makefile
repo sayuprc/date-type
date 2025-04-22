@@ -9,7 +9,7 @@ GROUPNAME := $(shell id -g -n)
 
 .PHONY: build
 build: ## Build docker image
-	docker build -t date-type:1.x . \
+	docker build -t date-type:0.x . \
 		--build-arg UID=${UID} \
 		--build-arg GID=${GID} \
 		--build-arg USERNAME=${USERNAME} \
