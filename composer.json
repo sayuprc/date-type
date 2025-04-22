@@ -14,7 +14,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "DateType\\": "src/"
+            "DateType\\": "src/DateType/"
         }
     },
     "autoload-dev": {

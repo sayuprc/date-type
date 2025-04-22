@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace Tests\DateType;
 
 use DateTime;
 use DateTimeImmutable;
@@ -14,13 +14,13 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-class DateTest extends TestCase
+class DateImmutableTest extends TestCase
 {
     #[Test]
     #[DataProvider('provideTimeIsZero')]
     public function timeIsZero(Date|DateImmutable|DateTimeInterface|string $datetime, ?DateTimeZone $timezone, string $expected): void
     {
-        $this->assertSame($expected, new Date($datetime, $timezone)->format('Y-m-d 00:00:00.000000'));
+        $this->assertSame($expected, new DateImmutable($datetime, $timezone)->format('Y-m-d 00:00:00.000000'));
     }
 
     public static function provideTimeIsZero(): array
@@ -53,12 +53,12 @@ class DateTest extends TestCase
     #[DataProvider('provideAddYears')]
     public function addYears(string $datetime, int $year, string $expected): void
     {
-        $date = new Date($datetime);
+        $date = new DateImmutable($datetime);
 
         $modifiedDate = $date->addYears($year);
 
         $this->assertSame($expected, $modifiedDate->format('Y-m-d'));
-        $this->assertSame($date->format('Y-m-d'), $modifiedDate->format('Y-m-d'));
+        $this->assertNotSame($date->format('Y-m-d'), $modifiedDate->format('Y-m-d'));
     }
 
     public static function provideAddYears(): array
@@ -75,12 +75,12 @@ class DateTest extends TestCase
     #[DataProvider('provideAddMonths')]
     public function addMonths(string $datetime, int $month, string $expected): void
     {
-        $date = new Date($datetime);
+        $date = new DateImmutable($datetime);
 
         $modifiedDate = $date->addMonths($month);
 
         $this->assertSame($expected, $modifiedDate->format('Y-m-d'));
-        $this->assertSame($date->format('Y-m-d'), $modifiedDate->format('Y-m-d'));
+        $this->assertNotSame($date->format('Y-m-d'), $modifiedDate->format('Y-m-d'));
     }
 
     public static function provideAddMonths(): array
@@ -97,12 +97,12 @@ class DateTest extends TestCase
     #[DataProvider('provideAddDays')]
     public function addDays(string $datetime, int $day, string $expected): void
     {
-        $date = new Date($datetime);
+        $date = new DateImmutable($datetime);
 
         $modifiedDate = $date->addDays($day);
 
         $this->assertSame($expected, $modifiedDate->format('Y-m-d'));
-        $this->assertSame($date->format('Y-m-d'), $modifiedDate->format('Y-m-d'));
+        $this->assertNotSame($date->format('Y-m-d'), $modifiedDate->format('Y-m-d'));
     }
 
     public static function provideAddDays(): array
@@ -123,12 +123,12 @@ class DateTest extends TestCase
     #[DataProvider('provideSubYears')]
     public function subYears(string $datetime, int $year, string $expected): void
     {
-        $date = new Date($datetime);
+        $date = new DateImmutable($datetime);
 
         $modifiedDate = $date->subYears($year);
 
         $this->assertSame($expected, $modifiedDate->format('Y-m-d'));
-        $this->assertSame($date->format('Y-m-d'), $modifiedDate->format('Y-m-d'));
+        $this->assertNotSame($date->format('Y-m-d'), $modifiedDate->format('Y-m-d'));
     }
 
     public static function provideSubYears(): array
@@ -147,12 +147,12 @@ class DateTest extends TestCase
     #[DataProvider('provideSubMonths')]
     public function subMonths(string $datetime, int $month, string $expected): void
     {
-        $date = new Date($datetime);
+        $date = new DateImmutable($datetime);
 
         $modifiedDate = $date->subMonths($month);
 
         $this->assertSame($expected, $modifiedDate->format('Y-m-d'));
-        $this->assertSame($date->format('Y-m-d'), $modifiedDate->format('Y-m-d'));
+        $this->assertNotSame($date->format('Y-m-d'), $modifiedDate->format('Y-m-d'));
     }
 
     public static function provideSubMonths(): array
@@ -171,12 +171,12 @@ class DateTest extends TestCase
     #[DataProvider('provideSubDays')]
     public function subDays(string $datetime, int $day, string $expected): void
     {
-        $date = new Date($datetime);
+        $date = new DateImmutable($datetime);
 
         $modifiedDate = $date->subDays($day);
 
         $this->assertSame($expected, $modifiedDate->format('Y-m-d'));
-        $this->assertSame($date->format('Y-m-d'), $modifiedDate->format('Y-m-d'));
+        $this->assertNotSame($date->format('Y-m-d'), $modifiedDate->format('Y-m-d'));
     }
 
     public static function provideSubDays(): array
@@ -195,7 +195,7 @@ class DateTest extends TestCase
     #[DataProvider('provideDiff')]
     public function diff(string $datetime, Date|DateImmutable|DateTimeInterface $targetObject, bool $absolute, int $expected): void
     {
-        $this->assertSame($expected, new Date($datetime)->diff($targetObject, $absolute)->days);
+        $this->assertSame($expected, new DateImmutable($datetime)->diff($targetObject, $absolute)->days);
     }
 
     public static function provideDiff(): array
@@ -212,7 +212,7 @@ class DateTest extends TestCase
     #[DataProvider('provideIsSame')]
     public function isSame(string $datetime, Date|DateImmutable|DateTimeInterface $other, bool $expected): void
     {
-        $this->assertSame($expected, new Date($datetime)->isSame($other));
+        $this->assertSame($expected, new DateImmutable($datetime)->isSame($other));
     }
 
     public static function provideIsSame(): array
@@ -249,7 +249,7 @@ class DateTest extends TestCase
     #[DataProvider('provideIsBefore')]
     public function isBefore(string $datetime, Date|DateImmutable|DateTimeInterface $other, bool $expected): void
     {
-        $this->assertSame($expected, new Date($datetime)->isBefore($other));
+        $this->assertSame($expected, new DateImmutable($datetime)->isBefore($other));
     }
 
     public static function provideIsBefore(): array
@@ -298,7 +298,7 @@ class DateTest extends TestCase
     #[DataProvider('provideIsBeforeOrEqual')]
     public function isBeforeOrEqual(string $datetime, Date|DateImmutable|DateTimeInterface $other, bool $expected): void
     {
-        $this->assertSame($expected, new Date($datetime)->isBeforeOrEqual($other));
+        $this->assertSame($expected, new DateImmutable($datetime)->isBeforeOrEqual($other));
     }
 
     public static function provideIsBeforeOrEqual(): array
@@ -347,7 +347,7 @@ class DateTest extends TestCase
     #[DataProvider('provideIsAfter')]
     public function isAfter(string $datetime, Date|DateImmutable|DateTimeInterface $other, bool $expected): void
     {
-        $this->assertSame($expected, new Date($datetime)->isAfter($other));
+        $this->assertSame($expected, new DateImmutable($datetime)->isAfter($other));
     }
 
     public static function provideIsAfter(): array
@@ -396,7 +396,7 @@ class DateTest extends TestCase
     #[DataProvider('provideIsAfterOrEqual')]
     public function isAfterOrEqual(string $datetime, Date|DateImmutable|DateTimeInterface $other, bool $expected): void
     {
-        $this->assertSame($expected, new Date($datetime)->isAfterOrEqual($other));
+        $this->assertSame($expected, new DateImmutable($datetime)->isAfterOrEqual($other));
     }
 
     public static function provideIsAfterOrEqual(): array
@@ -445,7 +445,7 @@ class DateTest extends TestCase
     #[DataProvider('provideFormat')]
     public function format(string $datetime, string $format, string $expected): void
     {
-        $this->assertSame($expected, new Date($datetime)->format($format));
+        $this->assertSame($expected, new DateImmutable($datetime)->format($format));
     }
 
     public static function provideFormat(): array
@@ -462,7 +462,7 @@ class DateTest extends TestCase
     #[DataProvider('provideGetTimezone')]
     public function getTimezone(string $datetime, ?DateTimeZone $timezone, DateTimeZone $expected): void
     {
-        $this->assertSame($expected->getName(), new Date($datetime, $timezone)->getTimezone()->getName());
+        $this->assertSame($expected->getName(), new DateImmutable($datetime, $timezone)->getTimezone()->getName());
     }
 
     public static function provideGetTimezone(): array
@@ -477,7 +477,7 @@ class DateTest extends TestCase
     #[DataProvider('provideSetTimezone')]
     public function setTimezone(string $datetime, ?DateTimeZone $timezone, DateTimeZone $modifiedTimezone, DateTimeZone $expected): void
     {
-        $this->assertSame($expected->getName(), new Date($datetime, $timezone)->setTimezone($modifiedTimezone)->getTimezone()->getName());
+        $this->assertSame($expected->getName(), new DateImmutable($datetime, $timezone)->setTimezone($modifiedTimezone)->getTimezone()->getName());
     }
 
     public static function provideSetTimezone(): array
@@ -489,8 +489,8 @@ class DateTest extends TestCase
     }
 
     #[Test]
-    public function toImmutable(): void
+    public function toMutable(): void
     {
-        $this->assertInstanceOf(DateImmutable::class, new Date()->toImmutable());
+        $this->assertInstanceOf(Date::class, new DateImmutable()->toMutable());
     }
 }
