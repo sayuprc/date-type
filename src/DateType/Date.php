@@ -8,8 +8,10 @@ use DateInterval;
 use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
+use DateType\Contracts\Comparable;
+use DateType\Contracts\Modifiable;
 
-class Date
+class Date implements Comparable, Modifiable
 {
     private DateTime $date;
 
