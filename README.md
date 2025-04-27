@@ -1,6 +1,6 @@
 # sayuprc/date-type
 
-A library for handling result types in PHP.
+Simple DateTime-based date type.
 
 ## Requirements
 
@@ -19,8 +19,8 @@ composer require sayuprc/date-type
 ```php
 <?php
 
-use DateType\DateImmutable;
+use DateType\ImmutableDate;
 
 // A date is generated with the time in the state 00:00:00.000000
-$date = new DateImmutable();
+$date = new ImmutableDate();
 ```
