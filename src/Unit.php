@@ -10,7 +10,7 @@ enum Unit: string
     case Month = 'month';
     case Day = 'day';
 
-    public function isOverflow(): bool
+    public function isOverflowable(): bool
     {
         return in_array(
             $this,
