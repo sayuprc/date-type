@@ -5,6 +5,7 @@
 .gitignore export-ignore
 compose.yaml export-ignore
 Dockerfile export-ignore
+baseline.php export-ignore
 ecs.php export-ignore
 Makefile export-ignore
 php.ini export-ignore
